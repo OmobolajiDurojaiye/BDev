@@ -21,7 +21,6 @@ def create_app():
     app.config['UPLOAD_FOLDER_VIDEO'] = os.path.join(app.root_path, 'static/uploads/video')
     app.config['UPLOAD_FOLDER_IMAGE'] = os.path.join(app.root_path, 'static/uploads/image')
 
-    # Create upload directories if they don't exist
     os.makedirs(app.config['UPLOAD_FOLDER_VIDEO'], exist_ok=True)
     os.makedirs(app.config['UPLOAD_FOLDER_IMAGE'], exist_ok=True)
 
@@ -42,4 +41,9 @@ def create_app():
 
     register_blueprints(app)
 
+    # 👇 Add this block
+    with app.app_context():
+        db.create_all()
+
     return app
+
