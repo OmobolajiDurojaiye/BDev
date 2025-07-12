@@ -41,7 +41,6 @@ def create_app():
 
     register_blueprints(app)
 
-    # 👇 Add this block
     with app.app_context():
         db.create_all()
 
