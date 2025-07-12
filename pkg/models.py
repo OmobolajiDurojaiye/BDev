@@ -6,6 +6,7 @@ from sqlalchemy import JSON, Text
 
 db = SQLAlchemy()
 
+
 class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
@@ -19,14 +20,17 @@ class Project(db.Model):
     project_type = db.Column(db.String(50), nullable=False)
     tech_tags = db.Column(db.String(255), nullable=True)
     role = db.Column(db.String(100), nullable=False)
+    client_name = db.Column(db.String(100), nullable=True)
     
     ai_used = db.Column(db.Boolean, default=False, nullable=False)
     ai_desc = db.Column(db.String(255), nullable=True)
     
     project_value = db.Column(db.String(100), nullable=True)
+    live_site_url = db.Column(db.String(255), nullable=True)
+    github_url = db.Column(db.String(255), nullable=True)
     case_study_url = db.Column(db.String(255), nullable=True)
     
-    collaborators = db.Column(JSON, nullable=True)
+    # REMOVED: Relationship to Collaborator model.
     
     @property
     def video_url(self):
@@ -43,7 +47,6 @@ class Project(db.Model):
     def __repr__(self):
         return f'<Project {self.title}>'
 
-# --- NEW MODEL FOR CONTACT MESSAGES ---
 class ContactSubmission(db.Model):
     __tablename__ = 'contact_submissions'
     id = db.Column(db.Integer, primary_key=True)
