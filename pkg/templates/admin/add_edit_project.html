@@ -63,8 +63,9 @@
                 {% endfor %}
               </div>
               <div class="form-group">
-                {{ form.date.label }} {{ form.date(class="form-control") }} {%
-                for error in form.date.errors %}
+                {{ form.date.label }} {{ form.date(class="form-control",
+                value=form.date.data.strftime('%Y-%m-%d') if form.date.data else
+                '') }} {% for error in form.date.errors %}
                 <span class="error-text">{{ error }}</span>
                 {% endfor %}
               </div>
@@ -124,6 +125,13 @@
                 {% endfor %}
               </div>
               <div class="form-group">
+                {{ form.client_name.label }} {{
+                form.client_name(class="form-control") }} {% for error in
+                form.client_name.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group span-3">
                 {{ form.tech_tags.label }} {{
                 form.tech_tags(class="form-control", placeholder="e.g.
                 Flask,React,Python") }} {% for error in form.tech_tags.errors %}
@@ -154,6 +162,21 @@
                 {% endfor %}
               </div>
               <div class="form-group">
+                {{ form.live_site_url.label }} {{
+                form.live_site_url(class="form-control",
+                placeholder="https://...") }} {% for error in
+                form.live_site_url.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.github_url.label }} {{
+                form.github_url(class="form-control", placeholder="https://...")
+                }} {% for error in form.github_url.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
                 {{ form.case_study_url.label }} {{
                 form.case_study_url(class="form-control",
                 placeholder="https://...") }} {% for error in
@@ -163,22 +186,18 @@
               </div>
             </div>
 
-            <!-- Collaborators -->
-            <div class="form-group">
-              {{ form.collaborators.label }}
-              <small>{{ form.collaborators.description }}</small>
-              {{ form.collaborators(class="form-control textarea-code") }} {%
-              for error in form.collaborators.errors %}
-              <span class="error-text">{{ error }}</span>
-              {% endfor %}
-            </div>
+            <!-- REMOVED: Collaborators section is gone. -->
           </fieldset>
 
           <div class="form-group-submit">
             {{ form.submit(class="btn-submit") }}
           </div>
         </form>
+
+        <!-- REMOVED: Template for new collaborator entries is gone. -->
       </div>
     </main>
+
+    <!-- REMOVED: Script for adding/removing collaborators is gone. -->
   </body>
 </html>
