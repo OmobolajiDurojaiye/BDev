@@ -17,7 +17,7 @@
   <main class="portfolio-list">
     {% if projects %} {% for project in projects %}
     <article class="project-item reveal">
-      <!-- Left side: Visuals (Thumbnail and Hover-Video) -->
+      <!-- Left side: Visuals -->
       <div class="project-visuals">
         <img
           class="project-thumbnail"
@@ -41,55 +41,80 @@
       <!-- Right side: Project Details -->
       <div class="project-details">
         <header class="project-header">
-          <span class="project-date">{{ project.date.strftime('%B %Y') }}</span>
+          <span class="project-type-badge">{{ project.project_type }}</span>
           <h2 class="project-title">{{ project.title }}</h2>
+          <span class="project-date">{{ project.date.strftime('%B %Y') }}</span>
         </header>
 
         <p class="project-description">{{ project.description }}</p>
 
-        {% if project.tech_tags %}
-        <div class="project-tech-stack">
-          <h4 class="details-subtitle">Tech Stack</h4>
-          <div class="tags-container">
-            {% for tag in project.tech_tags.split(',') %}
-            <span class="tag">{{ tag.strip() }}</span>
-            {% endfor %}
+        <div class="details-section-grid">
+          {% if project.tech_tags %}
+          <div class="details-section">
+            <h4 class="details-subtitle">Tech Stack</h4>
+            <div class="tags-container">
+              {% for tag in project.tech_tags.split(',') %}
+              <span class="tag">{{ tag.strip() }}</span>
+              {% endfor %}
+            </div>
           </div>
+          {% endif %}
+
+          <!-- REMOVED: Section for displaying collaborators. -->
         </div>
-        {% endif %}
 
         <div class="project-meta-grid">
           <div class="meta-item">
-            <strong class="meta-title">Type</strong>
-            <span class="meta-value">{{ project.project_type }}</span>
-          </div>
-          <div class="meta-item">
-            <strong class="meta-title">Role</strong>
+            <strong class="meta-title">My Role</strong>
             <span class="meta-value">{{ project.role }}</span>
           </div>
+          {% if project.client_name %}
           <div class="meta-item">
-            <strong class="meta-title">AI Used</strong>
-            <span class="meta-value"
-              >{% if project.ai_used %}Yes{% else %}No{% endif %}</span
-            >
+            <strong class="meta-title">Client</strong>
+            <span class="meta-value">{{ project.client_name }}</span>
           </div>
+          {% endif %} {% if project.project_value %}
+          <div class="meta-item">
+            <strong class="meta-title">Value</strong>
+            <span class="meta-value">{{ project.project_value }}</span>
+          </div>
+          {% endif %}
         </div>
 
+        {% if project.ai_used and project.ai_desc %}
+        <div class="ai-info">
+          <p>
+            <strong>AI Assistance:</strong> <span>{{ project.ai_desc }}</span>
+          </p>
+        </div>
+        {% endif %}
+
         <div class="project-links">
-          {% if project.case_study_url and project.case_study_url != '#' %}
+          {% if project.live_site_url %}
           <a
-            href="{{ project.case_study_url }}"
+            href="{{ project.live_site_url }}"
             class="project-button primary"
             target="_blank"
             rel="noopener noreferrer"
-            >View Project</a
+            >Launch Project</a
           >
-          {% endif %} {# Example for a GitHub link - add 'github_url' to your
-          project model #} {# {% if project.github_url %}
-          <a href="{{ project.github_url }}" class="project-button secondary"
+          {% endif %} {% if project.github_url %}
+          <a
+            href="{{ project.github_url }}"
+            class="project-button secondary"
+            target="_blank"
+            rel="noopener noreferrer"
             >View Code</a
           >
-          {% endif %} #}
+          {% endif %} {% if project.case_study_url %}
+          <a
+            href="{{ project.case_study_url }}"
+            class="project-button tertiary"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Read Case Study</a
+          >
+          {% endif %}
         </div>
       </div>
     </article>
