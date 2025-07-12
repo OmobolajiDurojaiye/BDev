@@ -31,6 +31,7 @@
         <div class="nav-logo">
           <a href="#">Bolaji<span class="logo-cursor">_</span></a>
         </div>
+        <!-- Desktop Navigation Links -->
         <ul class="nav-links">
           <li>
             <a href="{{ url_for('main.about') }}" class="nav-link">About</a>
@@ -46,7 +47,37 @@
           </li>
         </ul>
         <a href="{{ url_for('main.resume') }}" class="nav-button">Resume</a>
+
+        <!-- Hamburger Menu Button (for mobile) -->
+        <button
+          class="hamburger"
+          id="hamburger-button"
+          aria-label="Toggle menu"
+        >
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
       </nav>
+
+      <!-- Mobile Menu Overlay -->
+      <div class="mobile-nav" id="mobile-nav">
+        <div class="mobile-nav-links">
+          <a href="{{ url_for('main.about') }}" class="mobile-nav-link"
+            >About</a
+          >
+          <a href="{{ url_for('main.portfolio') }}" class="mobile-nav-link"
+            >Portfolio</a
+          >
+          <a href="#" class="mobile-nav-link">Blog</a>
+          <a href="{{ url_for('main.contact') }}" class="mobile-nav-link"
+            >Contact</a
+          >
+          <a href="{{ url_for('main.resume') }}" class="mobile-nav-button"
+            >Resume</a
+          >
+        </div>
+      </div>
 
       <!-- Hero section -->
       <section class="hero">
