@@ -32,6 +32,11 @@ body {
   position: relative;
 }
 
+/* Disable body scroll when mobile menu is open */
+body.no-scroll {
+  overflow: hidden;
+}
+
 /* Interactive Canvas Background */
 #constellation-canvas {
   position: fixed;
@@ -154,6 +159,136 @@ body {
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 0 25px var(--accent-glow);
 }
+
+/* --- NEW: Hamburger & Mobile Nav Styles --- */
+
+.hamburger {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 25px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 101; /* Above the mobile nav overlay */
+}
+
+.hamburger:focus {
+  outline: none;
+}
+
+.hamburger .bar {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-primary);
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+/* Animate hamburger to an 'X' when active */
+.hamburger.is-active .bar:nth-child(1) {
+  transform: rotate(45deg);
+}
+.hamburger.is-active .bar:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.hamburger.is-active .bar:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--night-bg);
+  z-index: 99; /* Below navbar, above rest of content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.mobile-nav.is-active {
+  transform: translateY(0);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.mobile-nav-link {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 15px 0;
+  transition: color 0.3s, transform 0.3s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.mobile-nav.is-active .mobile-nav-link {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+/* Staggered animation for links */
+.mobile-nav.is-active .mobile-nav-link:nth-child(1) {
+  transition-delay: 0.2s;
+}
+.mobile-nav.is-active .mobile-nav-link:nth-child(2) {
+  transition-delay: 0.3s;
+}
+.mobile-nav.is-active .mobile-nav-link:nth-child(3) {
+  transition-delay: 0.4s;
+}
+.mobile-nav.is-active .mobile-nav-link:nth-child(4) {
+  transition-delay: 0.5s;
+}
+.mobile-nav.is-active .mobile-nav-button {
+  transition-delay: 0.6s;
+}
+
+.mobile-nav-link:hover {
+  color: var(--cyber-teal);
+  transform: scale(1.1);
+}
+
+.mobile-nav-button {
+  margin-top: 30px;
+  background: var(--cosmic-purple);
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 15px 35px;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(142, 68, 173, 0.4);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.mobile-nav.is-active .mobile-nav-button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- End of New Styles --- */
 
 /* Hero section */
 .hero {
@@ -459,9 +594,14 @@ body {
   .navbar {
     width: calc(100% - 40px);
   }
-  .nav-links {
+  /* Hide desktop nav and show hamburger */
+  .nav-links,
+  .nav-button {
     display: none;
-  } /* On smaller screens, you might implement a hamburger menu */
+  }
+  .hamburger {
+    display: flex;
+  }
   .hero-title {
     font-size: 3rem;
   }
