@@ -15,6 +15,10 @@ class InteractivePortfolio {
     };
     this.codeBlock = document.querySelector(".code-block");
 
+    // NEW: Elements for mobile navigation
+    this.hamburgerButton = document.getElementById("hamburger-button");
+    this.mobileNav = document.getElementById("mobile-nav");
+
     this.init();
   }
 
@@ -25,6 +29,7 @@ class InteractivePortfolio {
     this.animate();
     this.initTypingAnimation();
     this.initConsoleMessage();
+    this.initMobileMenu(); // NEW: Initialize mobile menu logic
   }
 
   setupCanvas() {
@@ -136,6 +141,30 @@ class InteractivePortfolio {
       const container = document.querySelector(".code-block-container");
       container.addEventListener("mouseleave", () => this.handleMouseLeave());
     }
+  }
+
+  // NEW: Method to handle mobile menu functionality
+  initMobileMenu() {
+    if (!this.hamburgerButton || !this.mobileNav) return;
+
+    // Toggle menu on hamburger click
+    this.hamburgerButton.addEventListener("click", () => {
+      this.hamburgerButton.classList.toggle("is-active");
+      this.mobileNav.classList.toggle("is-active");
+      document.body.classList.toggle("no-scroll");
+    });
+
+    // Close menu when a link inside it is clicked
+    const mobileLinks = this.mobileNav.querySelectorAll("a");
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (this.mobileNav.classList.contains("is-active")) {
+          this.hamburgerButton.classList.remove("is-active");
+          this.mobileNav.classList.remove("is-active");
+          document.body.classList.remove("no-scroll");
+        }
+      });
+    });
   }
 
   initTypingAnimation() {
