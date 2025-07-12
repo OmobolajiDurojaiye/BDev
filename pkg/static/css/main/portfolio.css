@@ -33,7 +33,7 @@
 .portfolio-list {
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 120px;
 }
 
 .no-projects {
@@ -47,7 +47,7 @@
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   gap: 50px;
-  align-items: center;
+  align-items: flex-start;
 }
 
 /* Alternate layout for even-numbered projects */
@@ -65,9 +65,10 @@
   overflow: hidden;
   background-color: #1a1a2e;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
+  top: 10px; /* Slight offset for visual appeal */
 }
 .project-item:hover .project-visuals {
-  transform: scale(1.03);
+  transform: scale(1.03) translateY(-5px);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
@@ -118,16 +119,32 @@
   gap: 25px;
 }
 
-.project-header .project-date {
+.project-header {
+  position: relative;
+  padding-top: 35px;
+}
+.project-type-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--cosmic-purple);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
   font-family: "JetBrains Mono", monospace;
-  color: var(--cyber-teal);
-  font-size: 0.9rem;
-  margin-bottom: 5px;
 }
 .project-header .project-title {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--text-primary);
+  margin-bottom: 5px;
+}
+.project-header .project-date {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--cyber-teal);
+  font-size: 0.9rem;
 }
 
 .project-description {
@@ -141,7 +158,13 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.details-section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
 }
 
 .tags-container {
@@ -158,11 +181,13 @@
   font-weight: 500;
 }
 
+/* REMOVED: Styles for .collaborator-list */
+
 .project-meta-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 20px;
-  padding-top: 15px;
+  padding-top: 20px;
   border-top: 1px solid var(--glass-border);
 }
 .meta-item .meta-title {
@@ -178,9 +203,24 @@
   font-weight: 600;
 }
 
+.ai-info {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--cyber-teal);
+  padding: 15px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.ai-info strong {
+  color: var(--text-primary);
+}
+
 .project-links {
   margin-top: 15px;
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 15px;
 }
 .project-button {
@@ -189,13 +229,32 @@
   border-radius: 25px;
   text-decoration: none;
   font-weight: 600;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 .project-button.primary {
-  background: var(--cosmic-purple);
-  color: var(--text-primary);
+  background: linear-gradient(90deg, var(--cyber-teal), var(--cosmic-purple));
+  color: white;
 }
-.project-button:hover {
+.project-button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+}
+.project-button.secondary:hover {
+  background: white;
+  color: var(--night-bg);
+}
+.project-button.tertiary {
+  color: var(--cyber-teal);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 5px 0;
+  border-radius: 0;
+}
+.project-button.tertiary:hover {
+  text-decoration: underline;
+}
+.project-button:not(.tertiary):hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px var(--accent-glow);
 }
@@ -204,16 +263,22 @@
   .project-item,
   .project-item:nth-child(even) {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 40px;
   }
   .project-item:nth-child(even) .project-visuals {
     order: 1; /* Reset order for stacked layout */
+  }
+  .project-visuals {
+    top: 0;
   }
 }
 
 @media (max-width: 768px) {
   .portfolio-container {
     padding: 40px 20px;
+  }
+  .portfolio-list {
+    gap: 80px;
   }
   .page-title {
     font-size: 2.5rem;
